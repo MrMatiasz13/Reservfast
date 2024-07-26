@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "85166246195",
+    "project_id": "reservfastapp",
+    "storage_bucket": "reservfastapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85166246195:android:b262c5e7c55fdad26bd646",
+        "android_client_info": {
+          "package_name": "pl.mrmatiasz.reservfastapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYKlNa-U-THdjPUh0cJzdCcIXjo6stLZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
