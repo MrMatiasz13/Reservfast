@@ -10,4 +10,6 @@ data class Hotel(
     val phoneNUmber: Int,
     val numberOfStars: Int,
     val titleImage: ImageVector? = null
-)
+) {
+    constructor() : this("", "", "", "", 0, 0, null)
+}
