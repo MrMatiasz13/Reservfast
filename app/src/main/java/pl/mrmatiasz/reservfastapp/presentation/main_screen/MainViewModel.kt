@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.launch
 import pl.mrmatiasz.reservfastapp.data.model.Hotel
 import pl.mrmatiasz.reservfastapp.domain.repository.HotelDataRepository
@@ -24,9 +23,8 @@ class MainViewModel @Inject constructor(
 
     private fun fetchHotelsData() {
         viewModelScope.launch {
-            hotelDataRepository.getAll().collect {
-                _hotelsList.value = it.data ?: emptyList()
-                println(it.data)
+            hotelDataRepository.getAll().collect { result ->
+                _hotelsList.value = result.data ?: emptyList()
             }
         }
     }
