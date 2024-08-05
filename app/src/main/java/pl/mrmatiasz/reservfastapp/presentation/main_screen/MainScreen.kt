@@ -1,6 +1,8 @@
 package pl.mrmatiasz.reservfastapp.presentation.main_screen
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.PlaylistAddCheckCircle
@@ -38,6 +41,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -115,7 +119,21 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
         Scaffold(
             topBar = {
                 CenterAlignedTopAppBar(
-                    title = { Text(text = "Reservfast") },
+                    title = {
+                        Box(modifier = Modifier.fillMaxWidth()) {
+                            Text(
+                                modifier = Modifier.align(Alignment.Center),
+                                text = "Reservfast"
+                            )
+                            
+                            IconButton(
+                                modifier = Modifier.align(Alignment.TopEnd),
+                                onClick = { Log.d(TAG, "Account button is working.") }
+                            ) {
+                                Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "account_circle")
+                            }
+                        }
+                    },
                     navigationIcon = {
                         IconButton(onClick = {
                             scope.launch {
@@ -135,7 +153,7 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
             ) {
                 LazyColumn(modifier = Modifier.fillMaxWidth()) {
                     items(itemList.value) { item ->
-                        HotelListItem(testHotel = item)
+                        HotelListItem(hotel = item)
                     }
                 }
             }
@@ -144,7 +162,7 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
 }
 
 @Composable
-fun HotelListItem(testHotel: Hotel) {
+fun HotelListItem(hotel: Hotel) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -153,13 +171,14 @@ fun HotelListItem(testHotel: Hotel) {
         Row(modifier = Modifier.padding(8.dp)) {
             Column {
                 Text(
-                    text = testHotel.name,
+                    text = hotel.name,
                     style = MaterialTheme.typography.displayMedium
                 )
 
-                Text(text = "Localization: ${testHotel.city}")
+                Text(text = "Stars: ${hotel.stars}")
 
-                Text(text = "Stars: ${testHotel.stars}")
+                Text(text = "Localization: ${hotel.city}")
+
             }
         }
     }
@@ -169,7 +188,7 @@ fun HotelListItem(testHotel: Hotel) {
 @Composable
 private fun MainScreenPreview() {
     HotelListItem(
-        testHotel = Hotel(
+        hotel = Hotel(
             id = 1,
             name = "Victoria Hotel",
             address = "Wroclawska 18",
